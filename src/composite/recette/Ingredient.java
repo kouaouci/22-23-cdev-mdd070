@@ -1,6 +1,6 @@
 package composite.recette;
 
-public class Ingredient {
+public class Ingredient implements  ComposantPizza{
     private double prix;
     private String unite;
 
@@ -9,6 +9,8 @@ public class Ingredient {
         this.unite = unite;
     }
 
+
+    @Override
     public double getPrix() {
         return prix;
     }

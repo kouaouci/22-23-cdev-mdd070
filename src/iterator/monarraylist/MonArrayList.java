@@ -1,6 +1,6 @@
 package iterator.monarraylist;
 
-public class MonArrayList {
+public class MonArrayList  implements Iterable {
 
     private String[] array = new String[10];
     private int index = 0;
@@ -11,7 +11,7 @@ public class MonArrayList {
 
     public void add(String elem) {
         if (index >= array.length) {
-            doubleTaille();
+            doubleTaille ();
         }
         array[index] = elem;
         index++;
@@ -19,7 +19,7 @@ public class MonArrayList {
 
     private void doubleTaille() {
         String[] array2 = new String[array.length * 2];
-        copie(array, array2);
+        copie ( array, array2 );
         array = array2;
     }
 
@@ -32,5 +32,39 @@ public class MonArrayList {
 
     public int size() {
         return index;
+    }
+
+    @Override
+    public MonArrayListIterator getIterator() {
+        return new MonArrayListIterator ( this );
+    }
+
+
+    private class MonArrayListIterator implements Iterator {
+        private final MonArrayList monArrayList;
+        private int currentIndex = 0;
+
+        public MonArrayListIterator(MonArrayList monArrayList) {
+
+            this.monArrayList = monArrayList;
+
+        }
+
+        @Override
+        public boolean hasNext() {
+
+            return currentIndex < monArrayList.size ();
+        }
+
+        @Override
+        public String next() {
+            if (!hasNext ()) {
+                throw new IllegalStateException ( "No more elements" );
+            }
+            return monArrayList.get ( currentIndex++ );
+        }
+
+
+
     }
 }

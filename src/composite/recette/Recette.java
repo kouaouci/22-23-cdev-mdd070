@@ -1,25 +1,26 @@
 package composite.recette;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Recette {
-    private Map<Ingredient, Double> ingredients = new HashMap<>();
-    private Map<Recette, Double> sousRecettes = new HashMap<>();
+public class Recette implements ComposantPizza {
 
-    public void add(double quantite, Ingredient ingredient) {
-        ingredients.put(ingredient, quantite);
+    private Map<ComposantPizza, Double> composantPizza = new HashMap<> ();
+
+    public void add(double quantite, ComposantPizza composantPizza) {
+        this.composantPizza.put ( composantPizza, quantite );
     }
 
-    public void addSousRecette(double quantite, Recette recette) {
-        sousRecettes.put(recette, quantite);
-    }
+    @Override
+    public double getPrix() {
+        double prixTotal = 0;
+        for (Map.Entry<ComposantPizza, Double> entry : composantPizza.entrySet ()) {
+            ComposantPizza composantPizza = entry.getKey ();
+            double quantite = entry.getValue ();
+            prixTotal += composantPizza.getPrix () * quantite;
+        }
+        return prixTotal;
 
-    public Map<Ingredient, Double> getIngredients() {
-        return ingredients;
-    }
-
-    public Map<Recette, Double> getSousRecettes() {
-        return sousRecettes;
     }
 }

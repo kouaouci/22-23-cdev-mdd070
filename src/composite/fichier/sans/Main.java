@@ -16,5 +16,6 @@ public class Main {
         dossier.addSousDossier(sousDossier1);
 
         int taille = dossier.calculerTaille();
+     System.out.println(taille);
     }
 }
